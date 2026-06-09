@@ -508,6 +508,8 @@ body.is-ready .card-foot {
   flex-shrink: 0;
   aspect-ratio: 240 / 210;
   isolation: isolate;
+  container-type: inline-size;
+  container-name: heart;
   animation: heartIdleFloat 4.8s ease-in-out infinite;
 }
 
@@ -575,35 +577,65 @@ body.is-ready .card-foot {
   z-index: 0;
 }
 
-/* Longer sponsor copy — keep text inside heart silhouette */
+/* Sponsor copy — scales with heart width, readable on all screens */
 .heart-well__content--sponsors {
-  top: 48%;
-  width: min(54%, 172px);
-  max-width: min(170px, 78%);
-  padding: 0.2rem 0.1rem 0.32rem;
+  top: 47.5%;
+  width: min(60cqi, 88%);
+  max-width: 88%;
+  padding: 0.12rem 0.06rem 0.2rem;
 }
 
 .heart-well__content--sponsors .invite-copy {
-  margin: 0 0 0.22rem;
-  font-size: clamp(0.72rem, 2.15vw, 0.86rem);
-  line-height: 1.28;
+  margin: 0 0 0.16rem;
+  font-size: clamp(0.8rem, 5.1cqi, 0.98rem);
+  font-weight: 500;
+  line-height: 1.2;
   letter-spacing: 0.01em;
 }
 
 .heart-well__content--sponsors .invite-copy--ask {
-  margin-bottom: 0.28rem;
-  font-size: clamp(0.7rem, 2.05vw, 0.82rem);
-  line-height: 1.26;
+  margin-bottom: 0.2rem;
+  font-size: clamp(0.78rem, 4.85cqi, 0.94rem);
+  line-height: 1.18;
 }
 
 .heart-well__content--sponsors .invite-copy__second {
-  font-size: 0.88em;
-  letter-spacing: -0.01em;
+  font-size: 0.96em;
+  letter-spacing: 0;
 }
 
 .heart-well__content--sponsors .invite-date {
-  font-size: clamp(1.05rem, 3.2vw, 1.35rem);
-  letter-spacing: 0.08em;
+  font-size: clamp(1rem, 7.4cqi, 1.42rem);
+  letter-spacing: 0.07em;
+}
+
+@media (max-width: 480px) {
+  .heart-wrap--sponsors {
+    width: min(318px, min(94vw, 100% - 1rem));
+  }
+
+  .heart-well__content--sponsors {
+    top: 47%;
+    width: min(62cqi, 90%);
+    padding: 0.1rem 0.04rem 0.16rem;
+  }
+
+  .heart-well__content--sponsors .invite-copy {
+    font-size: clamp(0.84rem, 5.4cqi, 1rem);
+    line-height: 1.18;
+    margin-bottom: 0.14rem;
+  }
+
+  .heart-well__content--sponsors .invite-copy--ask {
+    font-size: clamp(0.82rem, 5.15cqi, 0.96rem);
+    line-height: 1.16;
+    margin-bottom: 0.18rem;
+  }
+
+  .heart-well__content--sponsors .invite-date {
+    font-size: clamp(1.06rem, 7.8cqi, 1.46rem);
+    letter-spacing: 0.06em;
+  }
 }
 
 .scratch-canvas {
@@ -1000,30 +1032,26 @@ body.is-ready .card-foot {
   }
 
   .heart-well__content--sponsors {
-    width: min(52%, 148px);
-    max-width: min(146px, 74%);
-    padding: 0.14rem 0.08rem 0.24rem;
+    top: 46.5%;
+    width: min(64cqi, 90%);
+    padding: 0.08rem 0.04rem 0.12rem;
   }
 
   .heart-well__content--sponsors .invite-copy {
-    font-size: clamp(0.66rem, 1.95vw, 0.78rem);
-    line-height: 1.24;
-    margin-bottom: 0.16rem;
+    font-size: clamp(0.76rem, 5.6cqi, 0.9rem);
+    line-height: 1.14;
+    margin-bottom: 0.1rem;
   }
 
   .heart-well__content--sponsors .invite-copy--ask {
-    font-size: clamp(0.64rem, 1.85vw, 0.74rem);
-    line-height: 1.22;
-    margin-bottom: 0.2rem;
-  }
-
-  .heart-well__content--sponsors .invite-copy__second {
-    font-size: 0.84em;
+    font-size: clamp(0.74rem, 5.35cqi, 0.86rem);
+    line-height: 1.12;
+    margin-bottom: 0.14rem;
   }
 
   .heart-well__content--sponsors .invite-date {
-    font-size: clamp(0.94rem, 2.85vw, 1.18rem);
-    letter-spacing: 0.06em;
+    font-size: clamp(0.92rem, 8cqi, 1.2rem);
+    letter-spacing: 0.05em;
   }
 
   .card-foot {
