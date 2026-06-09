@@ -11,6 +11,10 @@ Update the copy inside `.heart-well__content` in `index.html`:
 ```html
 <div class="heart-well__content">
   <p class="invite-copy">
+    Join us to celebrate<br />
+    <span class="invite-copy__second">our big day</span>
+  </p>
+  <p class="invite-copy invite-copy--ask">
     Will you be our<br />
     <span class="invite-copy__second">Ninong/Ninang?</span>
   </p>
