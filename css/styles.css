@@ -1,0 +1,1022 @@
+/* Reference: letterpress save-the-date — ivory paper, gold foil, debossed heart */
+
+:root {
+  --paper: #f7f1e6;
+  --paper-shadow: #e8dfcf;
+  --paper-highlight: #fffdf8;
+  --ink: #2f2922;
+  --ink-soft: #4a4034;
+  /* Sage + blush motif */
+  --sage-deep: #3d4f49;
+  --sage: #546860;
+  --sage-soft: #6f837c;
+  --blush: #b97182;
+  --blush-deep: #935f70;
+  --blush-mist: #f6e8ec;
+  /* Legacy gold vars → routed through motif for gradients still referencing them */
+  --gold-1: var(--sage-deep);
+  --gold-2: var(--sage-soft);
+  --gold-3: var(--blush-mist);
+  --gold-4: var(--blush-deep);
+  --studio-edge: #15120f;
+  font-synthesis: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  min-height: 100dvh;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  background: #f3eee6;
+  overflow: hidden;
+  overscroll-behavior-y: none;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body::before,
+body::after {
+  content: none;
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Soft studio lighting on the scene */
+.studio-rig {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.studio-light {
+  position: absolute;
+}
+
+.studio-light--key {
+  top: -15%;
+  left: 5%;
+  width: 65vmin;
+  height: 65vmin;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 252, 248, 0.06) 0%,
+    transparent 62%
+  );
+}
+
+.studio-light--fill {
+  bottom: -20%;
+  right: 0;
+  width: 75vmin;
+  height: 75vmin;
+  background: radial-gradient(
+    circle at 60% 60%,
+    rgba(220, 208, 190, 0.04) 0%,
+    transparent 58%
+  );
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: 100dvh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: max(clamp(0.85rem, 3.5vw, 2.75rem), env(safe-area-inset-top));
+  padding-right: max(clamp(0.85rem, 3.5vw, 2.75rem), env(safe-area-inset-right));
+  padding-bottom: max(clamp(0.85rem, 3.5vw, 2.75rem), env(safe-area-inset-bottom));
+  padding-left: max(clamp(0.85rem, 3.5vw, 2.75rem), env(safe-area-inset-left));
+  perspective: 1100px;
+  box-sizing: border-box;
+}
+
+.card-face {
+  position: relative;
+  width: min(412px, 100%);
+  max-width: 100%;
+  min-height: min(90vh, 780px);
+  min-height: min(88dvh, 780px);
+  min-height: min(88svh, 780px);
+  padding: clamp(1.5rem, 5.5vw, 3.2rem) clamp(1.1rem, 4.5vw, 2.2rem) clamp(1.35rem, 4.5vw, 2.6rem);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow:
+    0 1px 2px rgba(20, 16, 12, 0.06),
+    0 30px 62px rgba(10, 8, 6, 0.34),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  transform-style: preserve-3d;
+  transition: transform 0.32s ease, box-shadow 0.32s ease;
+}
+
+/* Directional light — top-left key, tone-on-tone (emboss read) */
+.card-face > .paper-base::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    132deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 253, 248, 0.14) 34%,
+    transparent 48%,
+    rgba(62, 52, 40, 0.03) 100%
+  );
+  mix-blend-mode: soft-light;
+}
+
+/* Luxury embossed stationery base */
+.paper-base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-color: #f5f1ea;
+  background-image: linear-gradient(168deg, #faf8f3 0%, #f3efe8 48%, #e8e2d6 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.88),
+    inset 0 -1px 0 rgba(55, 46, 36, 0.04),
+    inset 2px 2px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 56px rgba(45, 38, 30, 0.03);
+}
+
+/*
+ * Floral-inspired embossed stationery (tone-on-tone).
+ * Petal/leaf clusters read as pressed paper; mesh stays secondary.
+ */
+.paper-base::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    /* —— Top-left rosette (raised petals, light from top-left) —— */
+    radial-gradient(ellipse 32% 22% at 10% 14%, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.12) 42%, transparent 68%),
+    radial-gradient(ellipse 26% 20% at 18% 22%, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.06) 48%, transparent 72%),
+    radial-gradient(ellipse 24% 18% at 6% 26%, rgba(255, 255, 255, 0.32) 0%, transparent 62%),
+    radial-gradient(ellipse 34% 24% at 14% 30%, transparent 35%, rgba(42, 36, 28, 0.055) 62%, transparent 78%),
+    /* —— Top-right rosette —— */
+    radial-gradient(ellipse 30% 21% at 90% 13%, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.1) 44%, transparent 66%),
+    radial-gradient(ellipse 25% 19% at 82% 21%, rgba(255, 255, 255, 0.34) 0%, transparent 65%),
+    radial-gradient(ellipse 28% 20% at 94% 24%, rgba(255, 255, 255, 0.28) 0%, transparent 60%),
+    radial-gradient(ellipse 32% 22% at 86% 28%, transparent 38%, rgba(42, 36, 28, 0.05) 65%, transparent 80%),
+    /* —— Bottom corners: softer botanical press —— */
+    radial-gradient(ellipse 36% 28% at 12% 88%, rgba(255, 255, 255, 0.22) 0%, transparent 58%),
+    radial-gradient(ellipse 38% 30% at 10% 96%, transparent 40%, rgba(42, 36, 28, 0.045) 70%, transparent 88%),
+    radial-gradient(ellipse 36% 28% at 88% 88%, rgba(255, 255, 255, 0.2) 0%, transparent 58%),
+    radial-gradient(ellipse 38% 30% at 90% 96%, transparent 40%, rgba(42, 36, 28, 0.048) 70%, transparent 88%),
+    /* —— Engraved leaf veins (airy curves) —— */
+    radial-gradient(ellipse 120% 18% at 50% 0%, transparent 55%, rgba(42, 36, 28, 0.028) 78%, transparent 92%),
+    linear-gradient(152deg, transparent 54%, rgba(42, 36, 28, 0.022) 49.6%, rgba(42, 36, 28, 0.022) 50.4%, transparent 58%),
+    linear-gradient(28deg, transparent 52%, rgba(42, 36, 28, 0.02) 49.7%, rgba(42, 36, 28, 0.02) 50.3%, transparent 56%),
+    /* —— Fine linen tooth —— */
+    repeating-linear-gradient(
+      -18deg,
+      transparent 0 13px,
+      rgba(72, 60, 46, 0.022) 13px 14px
+    ),
+    repeating-linear-gradient(
+      22deg,
+      rgba(255, 255, 255, 0.085) 0 1px,
+      transparent 1px 15px
+    ),
+    /* —— Lower-center: gentle bloom + convergence (behind names) —— */
+    radial-gradient(ellipse 70% 38% at 50% 96%, rgba(42, 36, 28, 0.06) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 22% at 50% 82%, rgba(255, 255, 255, 0.18) 0%, transparent 62%),
+    /* —— Hidden mesh (scored lines, quieter than florals) —— */
+    linear-gradient(122deg, transparent 44%, rgba(58, 48, 38, 0.034) 49.5%, rgba(58, 48, 38, 0.034) 50.5%, transparent 56%),
+    linear-gradient(58deg, transparent 44%, rgba(58, 48, 38, 0.028) 49.4%, rgba(58, 48, 38, 0.028) 50.6%, transparent 56%),
+    linear-gradient(178deg, transparent 60%, rgba(58, 48, 38, 0.024) 49.6%, rgba(58, 48, 38, 0.024) 50.4%, transparent 62%),
+    /* —— Register dots —— */
+    radial-gradient(circle at 18% 72%, rgba(52, 44, 34, 0.08) 0 0.55px, transparent 1px),
+    radial-gradient(circle at 30% 67%, rgba(52, 44, 34, 0.075) 0 0.5px, transparent 0.95px),
+    radial-gradient(circle at 40% 75%, rgba(52, 44, 34, 0.065) 0 0.5px, transparent 0.95px),
+    radial-gradient(circle at 50% 81%, rgba(52, 44, 34, 0.085) 0 0.6px, transparent 1.05px),
+    radial-gradient(circle at 60% 75%, rgba(52, 44, 34, 0.065) 0 0.5px, transparent 0.95px),
+    radial-gradient(circle at 70% 67%, rgba(52, 44, 34, 0.075) 0 0.5px, transparent 0.95px),
+    radial-gradient(circle at 82% 72%, rgba(52, 44, 34, 0.08) 0 0.55px, transparent 1px);
+  filter: blur(0.12px);
+}
+
+.card-head,
+.heart-stage,
+.card-foot {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+}
+
+body:not(.is-ready) .card-head,
+body:not(.is-ready) .heart-stage,
+body:not(.is-ready) .card-foot {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+body.is-ready .card-head {
+  animation: revealUp 0.75s cubic-bezier(0.2, 0.8, 0.22, 1) both;
+}
+
+body.is-ready .heart-stage {
+  animation: revealUp 0.8s cubic-bezier(0.2, 0.8, 0.22, 1) 0.18s both;
+}
+
+body.is-ready .card-foot {
+  animation: revealUp 0.82s cubic-bezier(0.2, 0.8, 0.22, 1) 0.34s both;
+}
+
+/* Headlines — sage with blush-lit shimmer hints */
+.gold-foil {
+  margin: 0;
+  color: var(--sage-deep);
+  -webkit-text-fill-color: var(--sage-deep);
+  text-shadow:
+    0 1px 0 rgba(255, 251, 252, 0.92),
+    0 2px 6px rgba(62, 82, 76, 0.14),
+    0 0 14px rgba(185, 113, 130, 0.14);
+  animation: textLightSweep 3.9s ease-in-out infinite;
+}
+
+.gold-foil--lit {
+  position: relative;
+  display: inline-block;
+}
+
+.gold-foil--lit::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  background: linear-gradient(
+    108deg,
+    rgba(255, 255, 255, 0) 24%,
+    rgba(255, 255, 255, 0.95) 45%,
+    rgba(246, 220, 228, 0.92) 50%,
+    rgba(228, 240, 234, 0.85) 52%,
+    rgba(255, 255, 255, 0.95) 55%,
+    rgba(255, 255, 255, 0) 76%
+  );
+  background-size: 250% 100%;
+  background-position: -160% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow:
+    0 0 8px rgba(246, 224, 232, 0.55),
+    0 0 14px rgba(196, 218, 208, 0.35);
+  opacity: 1;
+  animation: textShimmerPass 3.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+.gold-foil--hero {
+  font-family: "Cinzel", "Cormorant Garamond", serif;
+  font-size: clamp(1.35rem, 4.2vw + 0.4rem, 2.34rem);
+  font-weight: 600;
+  letter-spacing: clamp(0.11em, 0.09em + 0.36vw, 0.18em);
+  text-indent: 0;
+  text-transform: none;
+  line-height: 1.25;
+  margin-bottom: clamp(1.24rem, 3.7vw, 1.75rem);
+  max-width: 100%;
+  white-space: normal;
+  text-wrap: balance;
+  padding-inline: 0.15rem;
+  hyphens: none;
+}
+
+.hero-subtitle {
+  margin: -0.95rem 0 1.5rem;
+  font-family: "Great Vibes", "Cormorant Garamond", serif;
+  font-size: clamp(1.35rem, 4.5vw + 0.35rem, 2.05rem);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
+  color: var(--blush-deep);
+  max-width: 100%;
+  padding-inline: 0.25rem;
+  text-wrap: balance;
+  text-shadow:
+    0 1px 0 rgba(255, 252, 253, 0.88),
+    0 3px 12px rgba(62, 82, 74, 0.12),
+    0 0 18px rgba(235, 196, 206, 0.35);
+}
+
+.hero-subtitle__main,
+.hero-subtitle__at,
+.hero-subtitle__venue {
+  display: block;
+}
+
+.hero-subtitle__at {
+  margin-top: 0.08rem;
+  font-family: "Cinzel", "Cormorant Garamond", serif;
+  font-size: 0.52em;
+  letter-spacing: 0.18em;
+  color: var(--sage-soft);
+  text-shadow: 0 1px 0 rgba(255, 253, 254, 0.8);
+}
+
+.hero-subtitle__venue {
+  margin-top: 0.04rem;
+  font-family: "Cinzel", "Cormorant Garamond", serif;
+  font-size: 0.44em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  text-shadow:
+    0 1px 0 rgba(255, 253, 254, 0.9),
+    0 2px 8px rgba(62, 82, 74, 0.1);
+}
+
+@media (max-width: 380px) {
+  .gold-foil--hero {
+    font-size: clamp(1.15rem, 6.2vw, 1.45rem);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    margin-top: -0.55rem;
+    font-size: clamp(1.2rem, 6.5vw, 1.55rem);
+  }
+}
+
+/* Mobile lock: keep invitation in one viewport with no extra bottom scroll */
+@media (max-width: 900px) {
+  .card {
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
+    padding-top: max(0.55rem, env(safe-area-inset-top));
+    padding-right: max(0.7rem, env(safe-area-inset-right));
+    padding-bottom: max(0.55rem, env(safe-area-inset-bottom));
+    padding-left: max(0.7rem, env(safe-area-inset-left));
+  }
+
+  .card-face {
+    min-height: 0;
+    height: 100%;
+    max-height: 100%;
+    transform: none !important;
+    padding: clamp(1rem, 3.5vw, 1.65rem) clamp(0.95rem, 3.6vw, 1.35rem)
+      clamp(0.95rem, 3.5vw, 1.45rem);
+  }
+
+  /* Mobile text clarity: reduce glow/foil effects that soften glyph edges */
+  .gold-foil,
+  .hero-subtitle,
+  .invite-copy,
+  .invite-date,
+  .scratch-hint,
+  .cta-cal {
+    text-shadow: none;
+  }
+
+  .gold-foil--lit::after,
+  .gold-foil--names::after,
+  .gold-foil--names::before {
+    display: none;
+  }
+
+  .gold-foil,
+  .gold-foil--names {
+    animation: none;
+  }
+
+  body,
+  .card-face {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+}
+
+.gold-foil--names {
+  font-family: "Great Vibes", "Cormorant Garamond", serif;
+  font-size: clamp(1.75rem, 6vw + 0.5rem, 2.95rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+  margin: 0 0 1.45rem;
+  max-width: 100%;
+  padding-inline: 0.2rem;
+  color: var(--blush);
+  -webkit-text-fill-color: var(--blush);
+  position: relative;
+  display: inline-block;
+  padding-inline: 0.06em;
+  overflow: visible;
+  isolation: isolate;
+  animation: nameShineSweep 3s ease-in-out infinite;
+}
+
+.gold-foil--names::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(
+    104deg,
+    rgba(255, 255, 255, 0) 26%,
+    rgba(255, 253, 254, 0.98) 44%,
+    rgba(244, 214, 222, 0.96) 49%,
+    rgba(222, 236, 230, 0.88) 53%,
+    rgba(255, 253, 254, 0.98) 56%,
+    rgba(255, 255, 255, 0) 74%
+  );
+  background-size: 240% 100%;
+  background-position: -165% 0;
+  filter: drop-shadow(0 0 7px rgba(238, 204, 214, 0.62))
+    drop-shadow(0 0 15px rgba(184, 210, 200, 0.42));
+  opacity: 0.05;
+  z-index: 2;
+  animation: namesShimmerBeam 3s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+}
+
+.gold-foil--names::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 26%;
+  left: -2%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 252, 253, 0.98) 0%,
+    rgba(244, 214, 222, 0.9) 42%,
+    rgba(220, 236, 228, 0.65) 58%,
+    rgba(220, 236, 228, 0) 78%
+  );
+  filter: blur(0.3px);
+  opacity: 0;
+  z-index: 3;
+  animation: namesSparkTravel 3s ease-in-out infinite;
+}
+
+/* Heart composition — column so heart + hint stack (centered), not side-by-side */
+.heart-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.35rem 0 0.85rem;
+}
+
+.heart-wrap {
+  position: relative;
+  width: min(306px, min(92vw, 100% - 1.5rem));
+  max-width: 100%;
+  margin-inline: auto;
+  flex-shrink: 0;
+  aspect-ratio: 240 / 210;
+  isolation: isolate;
+  animation: heartIdleFloat 4.8s ease-in-out infinite;
+}
+
+.heart-wrap--revealed::after {
+  content: "";
+  position: absolute;
+  inset: -3%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(196, 218, 194, 0.26) 0%,
+    rgba(176, 202, 178, 0.14) 40%,
+    rgba(176, 202, 178, 0) 72%
+  );
+  animation: revealGlow 1.25s ease-out;
+}
+
+.heart-reveal-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.4);
+  pointer-events: none;
+  z-index: 3;
+  border: 1.5px solid rgba(176, 198, 172, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(236, 246, 236, 0.55) inset,
+    0 0 18px rgba(120, 148, 118, 0.35);
+  animation: revealRing 0.95s cubic-bezier(0.2, 0.82, 0.25, 1) forwards;
+}
+
+.heart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 0;
+  filter: drop-shadow(0 8px 14px rgba(42, 56, 50, 0.14));
+}
+
+/* Full-heart scratch surface — clipped to SVG heart path */
+.heart-scratch-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  clip-path: url(#heartScratchClip);
+  -webkit-clip-path: url(#heartScratchClip);
+}
+
+.heart-well__content {
+  position: absolute;
+  left: 50%;
+  top: 51%;
+  transform: translate(-50%, -50%);
+  width: min(62%, 200px);
+  max-width: min(198px, 86%);
+  text-align: center;
+  padding: 0.45rem 0.2rem 0.65rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.scratch-canvas {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: crosshair;
+  touch-action: none;
+  pointer-events: auto;
+}
+
+.scratch-hint {
+  width: 100%;
+  max-width: min(340px, calc(100% - 1.25rem));
+  margin: 0.75rem auto 0;
+  padding-inline: max(0.5rem, env(safe-area-inset-left));
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: clamp(0.58rem, 2.4vw, 0.66rem);
+  font-weight: 600;
+  letter-spacing: clamp(0.12em, 0.5vw + 0.1em, 0.2em);
+  line-height: 1.35;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--sage-soft);
+  opacity: 0.78;
+  flex-shrink: 0;
+  transition: opacity 0.28s ease, color 0.28s ease, letter-spacing 0.28s ease;
+}
+
+.scratch-hint--revealed {
+  color: var(--sage);
+  opacity: 0.86;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  white-space: pre-line;
+  line-height: 1.45;
+}
+
+.invite-copy {
+  margin: 0 0 0.55rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.05rem, 3.2vw, 1.22rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  color: var(--sage-deep);
+  text-shadow: 0 1px 0 rgba(255, 252, 253, 0.55);
+}
+
+.invite-copy__second {
+  font-family: "Great Vibes", "Cormorant Garamond", serif;
+  font-style: normal;
+  font-size: 1.1em;
+  letter-spacing: 0.02em;
+  color: var(--blush-deep);
+}
+
+.invite-date {
+  margin: 0;
+  font-family: "Cinzel", "Cormorant Garamond", serif;
+  font-size: clamp(1.5rem, 4.6vw, 1.92rem);
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.16em;
+  color: var(--sage-deep);
+  text-shadow:
+    0 1px 0 rgba(255, 252, 253, 0.55),
+    0 0 20px rgba(235, 198, 208, 0.22);
+}
+
+/* Bottom CTA */
+.cta-cal {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.52rem;
+  min-height: 48px;
+  padding: 0.7rem clamp(1rem, 4vw, 1.45rem);
+  max-width: min(100%, 22rem);
+  border-radius: 999px;
+  touch-action: manipulation;
+  font-family: "Source Sans 3", system-ui, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fffafc;
+  background: linear-gradient(
+    168deg,
+    var(--sage-deep) 0%,
+    var(--sage) 34%,
+    #c49aa8 51%,
+    var(--sage) 68%,
+    #354841 100%
+  );
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.38) inset,
+    0 -1px 0 rgba(30, 42, 38, 0.18) inset,
+    0 9px 20px rgba(52, 72, 66, 0.28),
+    0 3px 8px rgba(90, 58, 68, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  animation: ctaGlowPulse 2.8s ease-in-out infinite;
+}
+
+.cta-cal:hover {
+  transform: translateY(-1px);
+}
+
+.cta-cal:active {
+  transform: translateY(0);
+}
+
+.cta-cal__icon {
+  flex-shrink: 0;
+  opacity: 0.98;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-cal {
+    transition: none;
+  }
+}
+
+/* Background music — autoplay often blocked; FAB toggles + draws attention if play needed */
+.music-fab {
+  position: fixed;
+  z-index: 40;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: max(1rem, env(safe-area-inset-right));
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: manipulation;
+  border: 1px solid rgba(84, 104, 96, 0.35);
+  background: linear-gradient(158deg, #fdfbfc 0%, #eef4f1 52%, #e8dde2 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 6px 18px rgba(22, 16, 10, 0.22);
+  color: var(--gold-4);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.music-fab:hover {
+  transform: scale(1.04);
+}
+
+.music-fab:active {
+  transform: scale(0.98);
+}
+
+.music-fab__glyph {
+  display: block;
+  pointer-events: none;
+}
+
+.music-fab__glyph--pause {
+  display: none;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.music-fab--playing .music-fab__glyph--play {
+  display: none;
+}
+
+.music-fab--playing .music-fab__glyph--pause {
+  display: block;
+}
+
+.music-fab--needs-tap {
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.65) inset,
+      0 6px 18px rgba(22, 16, 10, 0.22);
+  }
+  50% {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.65) inset,
+      0 6px 22px rgba(120, 148, 138, 0.38);
+  }
+}
+
+@keyframes revealRing {
+  0% {
+    opacity: 0.88;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.55);
+  }
+}
+
+@keyframes revealGlow {
+  0% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heartIdleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes ctaGlowPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.38) inset,
+      0 -1px 0 rgba(30, 42, 38, 0.18) inset,
+      0 9px 20px rgba(52, 72, 66, 0.28),
+      0 3px 8px rgba(90, 58, 68, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.46) inset,
+      0 -1px 0 rgba(30, 42, 38, 0.14) inset,
+      0 12px 26px rgba(88, 118, 108, 0.32),
+      0 5px 14px rgba(180, 120, 138, 0.18);
+  }
+}
+
+@keyframes textLightSweep {
+  0%,
+  20% {
+    text-shadow:
+      0 1px 0 rgba(255, 252, 253, 0.88),
+      -5px 2px 8px rgba(120, 148, 138, 0.14),
+      0 0 12px rgba(235, 198, 208, 0.18);
+  }
+  45% {
+    text-shadow:
+      0 1px 0 rgba(255, 253, 254, 0.95),
+      0 0 16px rgba(232, 196, 206, 0.42),
+      8px 2px 14px rgba(110, 138, 126, 0.22);
+  }
+  100% {
+    text-shadow:
+      0 1px 0 rgba(255, 252, 253, 0.88),
+      5px 2px 8px rgba(120, 148, 138, 0.14),
+      0 0 12px rgba(235, 198, 208, 0.18);
+  }
+}
+
+@keyframes textShimmerPass {
+  0%,
+  12% {
+    background-position: -170% 0;
+    opacity: 0;
+  }
+  30% {
+    background-position: 175% 0;
+    opacity: 1;
+  }
+  100% {
+    background-position: 175% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes nameShineSweep {
+  0%,
+  15% {
+    text-shadow:
+      0 1px 0 rgba(255, 252, 253, 0.92),
+      -22px 0 10px rgba(228, 236, 232, 0.35),
+      0 0 14px rgba(238, 200, 210, 0.28),
+      0 2px 7px rgba(62, 82, 74, 0.14);
+  }
+  40% {
+    text-shadow:
+      0 1px 0 rgba(255, 254, 254, 1),
+      0 0 22px rgba(244, 208, 216, 0.72),
+      0 0 34px rgba(178, 208, 196, 0.38),
+      0 2px 7px rgba(62, 82, 74, 0.14);
+  }
+  85%,
+  100% {
+    text-shadow:
+      0 1px 0 rgba(255, 252, 253, 0.92),
+      22px 0 10px rgba(228, 236, 232, 0.35),
+      0 0 14px rgba(238, 200, 210, 0.28),
+      0 2px 7px rgba(62, 82, 74, 0.14);
+  }
+}
+
+@keyframes namesShimmerBeam {
+  0%,
+  16% {
+    background-position: -170% 0;
+    opacity: 0;
+  }
+  35% {
+    background-position: 180% 0;
+    opacity: 1;
+  }
+  100% {
+    background-position: 180% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes namesSparkTravel {
+  0%,
+  20% {
+    transform: translateX(0) translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  34% {
+    transform: translateX(165px) translateY(-7px) scale(1);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(320px) translateY(5px) scale(0.75);
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(520px) translateY(0) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Short viewports (landscape phones, small windows): keep card on-screen */
+@media (max-height: 520px) and (orientation: landscape) {
+  .card {
+    margin: 0.35rem auto;
+    max-height: min(96dvh, 100%);
+  }
+
+  .card-face {
+    padding: calc(0.45rem + env(safe-area-inset-top))
+      calc(0.55rem + env(safe-area-inset-right))
+      calc(0.45rem + env(safe-area-inset-bottom))
+      calc(0.55rem + env(safe-area-inset-left));
+    gap: 0.35rem;
+    min-height: 0;
+  }
+
+  .hero {
+    gap: 0.2rem;
+  }
+
+  .hero__title {
+    font-size: clamp(1.35rem, 4.2vw + 0.6rem, 2.1rem);
+  }
+
+  .hero__subtitle {
+    font-size: clamp(0.72rem, 1.6vw + 0.45rem, 0.95rem);
+  }
+
+  .heart-stage {
+    margin: 0.15rem 0;
+  }
+
+  .heart-wrap {
+    width: min(58vw, 200px);
+  }
+
+  .card-foot {
+    margin-top: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-fab--needs-tap {
+    animation: none;
+  }
+
+  .music-fab {
+    transition: none;
+  }
+
+  .heart-wrap--revealed::after,
+  .heart-reveal-ring {
+    animation: none;
+  }
+
+  .gold-foil {
+    animation: none;
+  }
+
+  /* Keep couple-name shimmer active by request */
+  .gold-foil--names {
+    animation: nameShineSweep 3s ease-in-out infinite;
+  }
+
+  .gold-foil--names::after {
+    animation: namesShimmerBeam 3s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+    opacity: 0.9;
+  }
+
+  .gold-foil--names::before {
+    animation: namesSparkTravel 3s ease-in-out infinite;
+    opacity: 0.7;
+  }
+
+  .gold-foil--lit::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .heart-wrap,
+  .cta-cal,
+  .card-head,
+  .heart-stage,
+  .card-foot {
+    animation: none;
+    transform: none;
+  }
+}

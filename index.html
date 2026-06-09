@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content"
+  />
+  <meta name="theme-color" content="#eef4f1" />
+  <title>Save the Date — Jason & Rhona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&family=Source+Sans+3:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="studio-rig" aria-hidden="true">
+    <div class="studio-light studio-light--key"></div>
+    <div class="studio-light studio-light--fill"></div>
+  </div>
+
+  <main class="card">
+    <article class="card-face">
+      <div class="paper-base" aria-hidden="true"></div>
+
+      <header class="card-head">
+        <h1 class="gold-foil gold-foil--hero gold-foil--lit" data-text="Save the Date">Save the Date</h1>
+        <p class="hero-subtitle">The Berbers Wedding!</p>
+      </header>
+
+      <section class="heart-stage" aria-label="Invitation heart — scratch to reveal">
+        <div class="heart-wrap" id="heartWrap">
+          <svg class="heart-svg" viewBox="0 0 240 210" aria-hidden="true">
+            <defs>
+              <clipPath id="heartScratchClip" clipPathUnits="objectBoundingBox">
+                <path
+                  transform="scale(0.00416666667 0.00476190476)"
+                  d="M120 202 C106 188 92 175 76 161 C42 131 14 101 14 62 C14 28 39 6 72 6 C94 6 111 17 120 34 C129 17 146 6 168 6 C201 6 226 28 226 62 C226 101 198 131 164 161 C148 175 134 188 120 202Z"
+                />
+              </clipPath>
+              <linearGradient id="heartFill" x1="15%" y1="5%" x2="85%" y2="95%">
+                <stop offset="0%" stop-color="#e8f0e8" />
+                <stop offset="45%" stop-color="#cddfcc" />
+                <stop offset="100%" stop-color="#a8bda7" />
+              </linearGradient>
+              <filter id="heartDeboss" x="-35%" y="-35%" width="170%" height="170%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="4.5" result="b1" />
+                <feOffset dx="4" dy="5" in="b1" result="offDark" />
+                <feFlood flood-color="#1c1610" flood-opacity="0.38" />
+                <feComposite in2="offDark" operator="in" result="innerShadow" />
+                <feGaussianBlur in="SourceAlpha" stdDeviation="2.2" result="b2" />
+                <feOffset dx="-2.5" dy="-2.5" in="b2" result="offLit" />
+                <feFlood flood-color="#ffffff" flood-opacity="0.78" />
+                <feComposite in2="offLit" operator="in" result="innerLit" />
+                <feMerge>
+                  <feMergeNode in="innerShadow" />
+                  <feMergeNode in="innerLit" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <path
+              filter="url(#heartDeboss)"
+              fill="url(#heartFill)"
+              stroke="rgba(52,62,54,0.1)"
+              stroke-width="1"
+              d="M120 202 C106 188 92 175 76 161 C42 131 14 101 14 62 C14 28 39 6 72 6 C94 6 111 17 120 34 C129 17 146 6 168 6 C201 6 226 28 226 62 C226 101 198 131 164 161 C148 175 134 188 120 202Z"
+            />
+          </svg>
+
+          <div class="heart-scratch-layer">
+            <div class="heart-well__content">
+              <!-- Edit only this block for each Ninong / Ninang version -->
+              <p class="invite-copy">
+                We kindly invite you<br />
+                <span class="invite-copy__second">as our Ninong &amp; Ninang</span>
+              </p>
+              <p class="invite-date">11.11.26</p>
+            </div>
+            <canvas
+              id="scratchCanvas"
+              class="scratch-canvas"
+              width="480"
+              height="420"
+              aria-label="Scratch-off coating — drag to reveal details"
+            ></canvas>
+          </div>
+        </div>
+        <p class="scratch-hint">Scratch the heart to reveal</p>
+      </section>
+
+      <footer class="card-foot">
+        <h2 class="gold-foil gold-foil--names" data-text="Jason & Rhona">Jason &amp; Rhona</h2>
+        <button type="button" class="cta-cal" id="addToCalendar">
+          <svg class="cta-cal__icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true">
+            <rect x="3.5" y="5" width="17" height="15.5" rx="2" />
+            <path d="M3.5 10h17M8.5 3v4M15.5 3v4" />
+          </svg>
+          <span>Add to calendar</span>
+        </button>
+      </footer>
+    </article>
+  </main>
+
+  <audio id="saveDateMusic" autoplay preload="auto" loop playsinline>
+    <source src="audio/until-i-found-you.mp3" type="audio/mpeg" />
+  </audio>
+
+  <button
+    type="button"
+    id="musicToggle"
+    class="music-fab"
+    aria-pressed="false"
+    aria-label="Play music: Until I Found You by Stephen Sanchez"
+  >
+    <span class="music-fab__glyph music-fab__glyph--play" aria-hidden="true">♪</span>
+    <span class="music-fab__glyph music-fab__glyph--pause" aria-hidden="true">⏸</span>
+  </button>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

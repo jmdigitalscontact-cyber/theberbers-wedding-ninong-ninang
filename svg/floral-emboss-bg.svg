@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <!-- Tone-on-tone floral tile for embossed stationery  open linework only (no circles) -->
+  <g stroke="#ad9e8e" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.75" opacity="0.42">
+    <!-- Upper-left bloom -->
+    <path d="M52 96c18-22 48-28 72-14 26 16 34 48 18 74-12 20-34 28-56 24M62 118c14 10 32 12 48 4"/>
+    <path d="M92 58c-8 26 4 52 26 66M118 44c-14 32-6 60 14 78"/>
+    <!-- Upper-right spray -->
+    <path d="M318 72c-36 8-58 38-54 68 4 26 24 46 48 52 18 4 38 0 54-10M308 118c16 18 40 22 62 12"/>
+    <path d="M342 48c20 24 24 54 12 80M368 88c-26 6-48 22-58 44"/>
+    <!-- Center-right rose -->
+    <path d="M268 168c-22-6-44 4-54 26-10 24-2 50 18 64 22 16 52 14 72-6 18-18 20-46 8-68-14-26-44-36-72-28-12 2-22 8-30 16"/>
+    <path d="M248 208c18 12 42 10 58-8"/>
+    <!-- Lower-left leaves & stem -->
+    <path d="M48 268c28-8 52 6 68 32 14 22 14 48 2 70M58 308c22-6 40 4 54 22"/>
+    <path d="M88 240c-10 36 4 68 28 88M32 320c22-14 48-18 72-8"/>
+    <!-- Lower-center cascade -->
+    <path d="M168 292c16-28 44-42 72-36 30 6 50 32 48 62-2 28-22 50-48 56-20 4-42-2-58-16"/>
+    <path d="M188 328c20 14 46 12 64-8"/>
+    <!-- Bottom-right flourish -->
+    <path d="M308 288c32 4 56 28 60 60 4 28-8 54-28 70M318 332c24 10 50 6 70-8"/>
+    <!-- Connecting vines -->
+    <path d="M128 188c24 18 52 22 80 14M92 200c18 28 44 44 74 48M220 96c8 32 28 58 54 74M260 244c-34 10-58 36-66 68"/>
+    <!-- Small buds -->
+    <path d="M168 52c10 8 24 10 36 4M292 198c8 10 20 14 32 10M76 188c6 12 18 18 30 16"/>
+  </g>
+  <g stroke="#a69684" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" opacity="0.28">
+    <path d="M120 120s-8 28 8 44 36 16 52 6M272 220s20-24 44-20 36 20 38 44M152 352s28-12 44 4 16 36 6 52"/>
+    <path d="M200 20v48M360 200h-48M40 240h56"/>
+  </g>
+</svg>
