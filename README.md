@@ -29,4 +29,4 @@ Open http://localhost:8000
 
 ## Audio
 
-Place `until-i-found-you.mp3` in the `audio/` folder (same as the guest version).
+`audio/until-i-found-you.mp3` is included in the repo for GitHub Pages.
