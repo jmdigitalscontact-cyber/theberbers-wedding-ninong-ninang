@@ -11,8 +11,8 @@ Update the copy inside `.heart-well__content` in `index.html`:
 ```html
 <div class="heart-well__content">
   <p class="invite-copy">
-    We kindly invite you<br />
-    <span class="invite-copy__second">as our Ninong & Ninang</span>
+    Will you be our<br />
+    <span class="invite-copy__second">Ninong/Ninang?</span>
   </p>
   <p class="invite-date">11.11.26</p>
 </div>
