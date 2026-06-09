@@ -21,7 +21,7 @@ Update the copy inside `.heart-well__content` in `index.html`:
 ## Preview locally
 
 ```powershell
-cd Save-the-date-ninong-ninang
+cd Save-the-date/ninong-ninang
 python -m http.server 8000
 ```
 
